@@ -1,30 +1,29 @@
-import { getSession, signIn } from 'next-auth/react';
+import { unstable_getServerSession } from 'next-auth';
+import { signIn } from 'next-auth/react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next/types';
 import { MouseEvent, useCallback } from 'react';
+import { authOptions } from './api/auth/[...nextauth]';
 
 
 export const getServerSideProps: GetServerSideProps = async(ctx) => {
   
-  const session = await getSession(ctx)
+  const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions)
 
-  console.log(session?.user);
-
-  if(!session){
+  if(session){
     return {
-      props: {}
+      redirect: {
+        destination: '/dashboard',
+        permanent: false
+      }
     }
   }
-  
+
   return {
-    redirect: {
-      destination: '/dashboard',
-      permanent: false,
-    },
+    props: {}
   }
   
 } 
-
 
 export default function Home() {
 
