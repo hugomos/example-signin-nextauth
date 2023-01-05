@@ -20,7 +20,6 @@ export const getServerSideProps: GetServerSideProps = async(ctx) => {
     redirect: {
       destination: '/dashboard',
       permanent: false,
-      basePath: process.env.NEXTAUTH_URL
     },
   }
   
