@@ -4,8 +4,8 @@ import { GetServerSideProps } from 'next/types';
 import { MouseEvent, useCallback } from 'react';
 
 
-export const getServerSideProps: GetServerSideProps = async({ req }) => {
-  const session = await getSession({ req })
+export const getServerSideProps: GetServerSideProps = async(ctx) => {
+  const session = await getSession(ctx)
 
   if(session){
     return {
