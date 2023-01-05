@@ -5,19 +5,23 @@ import { MouseEvent, useCallback } from 'react';
 
 
 export const getServerSideProps: GetServerSideProps = async(ctx) => {
+  
   const session = await getSession(ctx)
 
-  if(session){
+  console.log(session?.user);
+
+  if(!session){
     return {
-      redirect: {
-        destination: '/dashboard',
-        permanent: false
-      }
+      props: {}
     }
   }
   
   return {
-    props: {}
+    redirect: {
+      destination: '/dashboard',
+      permanent: false,
+      basePath: process.env.NEXTAUTH_URL
+    },
   }
   
 } 
