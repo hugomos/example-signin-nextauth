@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  basePath: 'https://signin-auth.vercel.app/',
+  basePath: '/',
 }
 
 module.exports = nextConfig
