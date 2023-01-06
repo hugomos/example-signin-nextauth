@@ -2,6 +2,8 @@ import { signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { MouseEvent, useCallback } from 'react';
 
+const IMAGE_DEFAULT = '/images/default_user.jpg'
+
 export default function Dashboard(){
 
   const { data } = useSession()
@@ -21,22 +23,26 @@ export default function Dashboard(){
       </Head>
       <main style={{display: 'flex', flexDirection: 'column'}}>
         <div style={{display: 'flex', justifyContent: 'space-between', padding: 18}}>
-          <h3>Olá, {data?.user?.name}</h3>
-          <div>
-            <p>{data?.user?.email}</p>
-            <div style={{
-              height: 60,
-              width: 60,
-              borderWidth: 0,
-            }}>
-              <img src={data?.user?.image as string} alt="imagem do usuario no github" style={{
-                width:'100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: "50%"
-              }}/>
-            </div>
-          </div>
+          {!!data?.user && (
+            <>
+              <h3>Olá, {data?.user?.name}</h3>
+              <div>
+                <p>{data?.user?.email}</p>
+                <div style={{
+                  height: 60,
+                  width: 60,
+                  borderWidth: 0,
+                }}>
+                  <img src={data?.user?.image as string ?? IMAGE_DEFAULT} alt="imagem do usuario no github" style={{
+                    width:'100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: "50%"
+                  }}/>
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <button onClick={handleSignOut}>SignOut</button>
         </main>
